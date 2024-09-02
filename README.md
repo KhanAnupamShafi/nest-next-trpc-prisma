@@ -10,6 +10,8 @@
 - Style: Tailwind + [daisyUI](https://daisyui.com/)
 - Node.js package manager: [pnpm](https://pnpm.io)
 - Monorepo: [pnpm workspace](https://pnpm.io/workspaces)
+- Version control: Git Flow
+- CI/CD: GitHub Actions
 
 ## 🥕 Getting Started
 
