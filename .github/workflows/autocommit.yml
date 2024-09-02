@@ -8,12 +8,15 @@ on:
   schedule:
     - cron: '0 6,8,11 * * 1-5' # https://crontab.guru/#0_7,9,11_*_*_1,3
 
+  workflow_dispatch: # manually trigger the workflow
+
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
     steps:
       - name: DEBUG
         run: echo "::debug::Ref = ${{github.ref}}"
+
       - uses: actions/checkout@v3
         with:
           persist-credentials: false
@@ -21,16 +24,9 @@ jobs:
 
       - name: Modify page.tsx
         run: |
-          # Fetch a list of Pokémon names
           POKEMON_NAMES=$(curl -s https://pokeapi.co/api/v2/pokemon?limit=10 | jq -r '.results[].name')
-
-          # Randomly select a Pokémon name from the list
           POKEMON_NAME=$(echo "${POKEMON_NAMES}" | shuf -n 1)
-
-          # Modify page.tsx to use the new Pokémon name
           sed -i "s/pikachu/${POKEMON_NAME}/g" apps/web/app/page.tsx
-
-          # Print the new Pokémon name to a file
           echo "Selected Pokémon: ${POKEMON_NAME}" > selected_pokemon.txt
 
       - name: Modify last update
