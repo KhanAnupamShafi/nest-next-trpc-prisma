@@ -1,13 +1,15 @@
+// app/page.tsx
+import { fetchPokemonData } from '@web/app/action/fetchPokemon';
+import PokemonFetcher from '@web/app/components/PokemonFetcher';
 import { trpc } from '@web/app/trpc';
 
 export default async function Home() {
-  const { greeting } = await trpc.getUsers.query({
-    name: `Tom from backend 💚`,
+  const greeting = await trpc.getUsers.query({
+    name: 'Anupam from backend 💚',
   });
-  return (
-    <>
-      <div>{greeting}</div>
-      <button className="btn">daisyUI Button</button>
-    </>
-  );
+
+  // Fetching Pokémon data using server action
+  const pokemonData = await fetchPokemonData('pikachu');
+
+  return <PokemonFetcher greeting={greeting} pokemonData={pokemonData} />;
 }

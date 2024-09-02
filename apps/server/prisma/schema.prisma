@@ -8,19 +8,30 @@ generator client {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   username    String
   tweets      Tweet[]
+  PokemonData PokemonData[]
 }
 
 model Tweet {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  content     String
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
 }
 
+model PokemonData {
+  id             Int    @id @default(autoincrement())
+  name           String @unique
+  abilities      Json
+  baseExperience Int
+  cries          Json
+  sprites        Json
+  user           User   @relation(fields: [userId], references: [id])
+  userId         Int
+}
