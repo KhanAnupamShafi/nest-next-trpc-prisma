@@ -9,7 +9,7 @@ export default async function Home() {
   });
 
   // Fetching Pokémon data using server action
-  const pokemonData = await fetchPokemonData('pikachu');
+  const pokemonData = await fetchPokemonData('ivysaur');
 
   return <PokemonFetcher greeting={greeting} pokemonData={pokemonData} />;
 }
