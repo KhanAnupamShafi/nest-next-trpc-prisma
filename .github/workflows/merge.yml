@@ -10,14 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Ensure all branches and history are fetched
+      - name: Fetch all branches
+        run: git fetch --all
       - name: Set up Git
         run: |
           git config --local user.email "deep71.bd@gmail.com"
           git config --local user.name "KhanAnupamShafi"
+      - name: Checkout develop
+        run: git checkout develop
       - name: Rebase develop onto main
-        run: |
-          git checkout develop
-          git rebase main
+        run: git rebase main
       - name: Push to develop
         uses: ad-m/github-push-action@v0.6.0
         with:
