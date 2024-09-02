@@ -14,10 +14,10 @@ jobs:
         run: |
           git config --local user.email "deep71.bd@gmail.com"
           git config --local user.name "KhanAnupamShafi"
-      - name: Merge main into develop
+      - name: Rebase develop onto main
         run: |
           git checkout develop
-          git merge main
+          git rebase main
       - name: Push to develop
         uses: ad-m/github-push-action@v0.6.0
         with:
