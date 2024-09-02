@@ -1,0 +1,25 @@
+name: Sync main to develop
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync_with_develop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Git
+        run: |
+          git config --local user.email "deep71.bd@gmail.com"
+          git config --local user.name "KhanAnupamShafi"
+      - name: Merge main into develop
+        run: |
+          git checkout develop
+          git merge main
+      - name: Push to develop
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          branch: develop
+          github_token: ${{ secrets.GITHUB_TOKEN }}
