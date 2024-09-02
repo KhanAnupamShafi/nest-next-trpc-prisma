@@ -1,6 +1,6 @@
 # 🎏 NestJS - NextJS - tRPC - Prisma stack app
 
-## 🍰🍰 Tech stack
+## 🍰 Tech stack
 
 - DB: PostgreSQL
 - ORM: Prisma
