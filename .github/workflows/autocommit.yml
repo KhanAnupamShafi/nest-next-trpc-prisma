@@ -24,10 +24,17 @@ jobs:
 
       - name: Modify page.tsx
         run: |
-          POKEMON_NAMES=$(curl -s https://pokeapi.co/api/v2/pokemon?limit=10 | jq -r '.results[].name')
-          POKEMON_NAME=$(echo "${POKEMON_NAMES}" | shuf -n 1)
+          # Fetch the full response from the Pokémon API
+          POKEMON_RESPONSE=$(curl -s https://pokeapi.co/api/v2/pokemon?limit=10)
+
+          # Extract a Pokémon name from the response
+          POKEMON_NAME=$(echo "${POKEMON_RESPONSE}" | jq -r '.results | .[] | .name' | shuf -n 1)
+
+          # Modify page.tsx to use the new Pokémon name
           sed -i "s/pikachu/${POKEMON_NAME}/g" apps/web/app/page.tsx
-          echo "Selected Pokémon: ${POKEMON_NAME}" > selected_pokemon.txt
+
+          # Write the full API response to a JSON file
+          echo "${POKEMON_RESPONSE}" > selected_pokemon.json
 
       - name: Modify last update
         run: |
